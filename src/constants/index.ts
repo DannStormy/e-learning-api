@@ -29,6 +29,8 @@ export const ORIGIN =
 export const ROUTES = {
   // classes
   CREATECLASS: "/classes",
+  GETCLASS: "/classes/:class_id",
+  GETCLASSES: "/classes",
 
   // others
   HOME: "/",

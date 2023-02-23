@@ -16,29 +16,29 @@ class ClassService {
     }
   }
 
-//   async getProduct(productId: string): Promise<IProductDocument> {
-//     try {
-//       const product = await ProductModel.findById(productId);
-//       if (!product) {
-//         throw new Error("no record found")
-//       }
-//       return product
-//     } catch (error) {
-//       throw error
-//     }
-//   }
+  async getClass(classId: string): Promise<IClassDocument> {
+    try {
+      const cl = await ClassModel.findById(classId);
+      if (!cl) {
+        throw new Error("no class found")
+      }
+      return cl
+    } catch (error) {
+      throw error
+    }
+  }
 
-//   async getProducts(): Promise<IProductDocument[]> {
-//     try {
-//       const products = await ProductModel.find()
-//       if (!products) {
-//         throw new Error("no records found")
-//       }
-//       return products
-//     } catch (error) {
-//       throw error
-//     }
-//   }
+  async getClasses(): Promise<IClassDocument[]> {
+    try {
+      const cl = await ClassModel.find()
+      if (!cl) {
+        throw new Error("no records found")
+      }
+      return cl
+    } catch (error) {
+      throw error
+    }
+  }
 
 //   async deleteProduct(productId: string): Promise<void> {
 //     try {
@@ -60,17 +60,17 @@ class ClassService {
 //     }
 //   }
 
-//   async totalProductCount(): Promise<number> {
-//     try {
-//       const count = await ProductModel.count()
-//       if (!count) {
-//         throw new Error("no record count")
-//       }
-//       return count
-//     } catch (error) {
-//       throw new Error("no record was found")
-//     }
-//   }
+  async totalClassCount(): Promise<number> {
+    try {
+      const count = await ClassModel.count()
+      if (!count) {
+        throw new Error("no record count")
+      }
+      return count
+    } catch (error) {
+      throw new Error("no record was found")
+    }
+  }
 }
 
 export default new ClassService()

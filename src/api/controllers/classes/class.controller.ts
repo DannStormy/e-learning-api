@@ -12,7 +12,7 @@ import { logger } from "../../../config/logger";
 const { CREATED, NOT_FOUND, OK, BAD_REQUEST, UNAUTHORIZED } = StatusCodes;
 
 
-const { createClass } = ClassService
+const { createClass, getClass, totalClassCount, getClasses } = ClassService
 
 
 export default class ClassController {
@@ -34,31 +34,31 @@ export default class ClassController {
     }
   }
 
-  // static async getProduct(req: Request, res: Response) {
-  //   try {
-  //     const { product_id } = req.params
-  //     const product = await getProduct(product_id); 
-  //     if (!product) {
-  //       return errorResponse({
-  //         res,
-  //         message: "products not found",
-  //         statusCode: NOT_FOUND
-  //       })
-  //     }
-  //     return successResponse({
-  //       res,
-  //       data: product,
-  //       message: "product fetched",
-  //       statusCode: OK
-  //     })
-  //   } catch (error) {
-  //     logger("error", error)
-  //     errorResponse({
-  //       res,
-  //       message: "we encountered a problem while fetching a product"
-  //     })
-  //   }
-  // }
+  static async getClass(req: Request, res: Response) {
+    try {
+      const { class_id } = req.params
+      const cl = await getClass(class_id); 
+      if (!cl) {
+        return errorResponse({
+          res,
+          message: "class not found",
+          statusCode: NOT_FOUND
+        })
+      }
+      return successResponse({
+        res,
+        data:  cl,
+        message: "class fetched",
+        statusCode: OK
+      })
+    } catch (error) {
+      logger("error", error)
+      errorResponse({
+        res,
+        message: "we encountered a problem while fetching a class"
+      })
+    }
+  }
 
   // static async deleteProduct(req: Request, res: Response) {
   //   try {
@@ -88,40 +88,40 @@ export default class ClassController {
   //   }
   // }
 
-  // static async getProducts(req: Request, res: Response) {
-  //   try {
-  //     const { page, size, queryCondition } = req.query;
-  //     const { limit, offset } = getPagination(Number(page), Number(size));
-  //     const count = await totalProductCount();
-  //     if (!count) {
-  //       throw new Error("no count return")
-  //     }
-  //     const products  = await getProducts();
-  //     if (!count) {
-  //       return errorResponse({
-  //         res,
-  //         message: "products not found",
-  //         statusCode: NOT_FOUND
-  //       })
-  //     }
-  //     let data = {
-  //       count: count,
-  //       rows: products
-  //     }
-  //     const respData = getPagingData(data, Number(page), limit);
-  //     return successResponse({
-  //       res,
-  //       data: respData,
-  //       message: "fetch all products",
-  //       statusCode: OK
-  //     })
-  //   } catch (error) {
-  //     return errorResponse({
-  //       res,
-  //       message: "we encoutered a problem while fetching products"
-  //     })
-  //   }
-  // }
+  static async getClasses(req: Request, res: Response) {
+    try {
+      const { page, size, queryCondition } = req.query;
+      const { limit, offset } = getPagination(Number(page), Number(size));
+      const count = await totalClassCount();
+      if (!count) {
+        throw new Error("no count return")
+      }
+      const classes  = await getClasses();
+      if (!count) {
+        return errorResponse({
+          res,
+          message: "classes not found",
+          statusCode: NOT_FOUND
+        })
+      }
+      let data = {
+        count: count,
+        rows: classes
+      }
+      const respData = getPagingData(data, Number(page), limit);
+      return successResponse({
+        res,
+        data: respData,
+        message: "fetch all classes",
+        statusCode: OK
+      })
+    } catch (error) {
+      return errorResponse({
+        res,
+        message: "we encoutered a problem while fetching classes"
+      })
+    }
+  }
 
   // static async updateProducts(req: Request, res: Response) {
   //   try {

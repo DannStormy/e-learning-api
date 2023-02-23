@@ -4,10 +4,14 @@ import ClassController from "../controllers/classes/class.controller";
 import { validateClass } from "../middlewares/class";
 const {
   CREATECLASS,
+  GETCLASS,
+  GETCLASSES
 } = ROUTES
 
 const { 
-    createClass
+    createClass,
+    getClass,
+    getClasses
 } = ClassController;
 
 
@@ -19,10 +23,15 @@ classRouter.post(
   createClass
 );
    
-// productRouter.get(
-//   GETPRODUCTS,
-//   getProducts
-// );
+classRouter.get(
+  GETCLASS,
+  getClass
+);
+
+classRouter.get(
+  GETCLASSES,
+  getClasses
+);
 
 // productRouter.patch(
 //   UPDATEPRODUCT,
