@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ROUTES } from "../../constants/index";
-import ClassController from "../controllers/classes/class.controller";
+import ClassController from "../controllers/class.controller";
 import { validateClass } from "../middlewares/class";
 const {
   CREATECLASS,

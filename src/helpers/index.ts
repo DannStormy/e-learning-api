@@ -44,4 +44,8 @@ export function getPagination(page: number, size: number) {
 
     return { limit, offset };
 };
+
+export function toLower (str: string) {
+    return str.toLowerCase();
+}
   

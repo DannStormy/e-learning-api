@@ -27,6 +27,9 @@ export const ORIGIN =
     : [STAGING_CLIENT_URL, LOCAL_CLIENT_URL];
 
 export const ROUTES = {
+  //users
+  CREATEUSER: "/users",
+  
   // classes
   CREATECLASS: "/classes",
   GETCLASS: "/classes/:class_id",

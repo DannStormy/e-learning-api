@@ -1,13 +1,13 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import ClassService from "../../services/class";
+import ClassService from "../services/class";
 import {
   successResponse,
   errorResponse,
   getPagination,
   getPagingData,
-} from "../../../helpers"
+} from "../../helpers"
 import { Request, Response } from "express";
-import { logger } from "../../../config/logger";
+import { logger } from "../../config/logger";
 // import { IProductDocument } from "../model/products/product.types";
 const { CREATED, NOT_FOUND, OK, BAD_REQUEST, UNAUTHORIZED } = StatusCodes;
 
