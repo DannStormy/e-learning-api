@@ -1,16 +1,15 @@
 import { Schema } from "mongoose";
 import { findOneOrCreate } from "./user.statics";
+import { toLower } from "../../../helpers";
 
 const userSchema = new Schema({
   username: String,
-  email: String,
-  password: {
-    type: String,
-    bcrypt: true
+  email: { 
+    type: String, 
+    set: toLower
   },
-  type: {
-    type: String,
-  }
+  password: String,
+  type: String
 });
 
 userSchema.statics.findOneOrCreate = findOneOrCreate;

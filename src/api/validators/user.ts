@@ -19,4 +19,11 @@ export const UserValidation : any = Joi.object({
     username: Joi.string().required(),
     address: Joi.array().min(1).items(address).required(),
     email: Joi.string().email().required(),
+    password: Joi.string().required().min(6),
+    repeat_password: Joi.ref('password')
+});
+
+export const UserVerification : any = Joi.object({
+    username: Joi.string().required(),
+    password: Joi.string().required().min(6)
 });

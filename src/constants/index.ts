@@ -7,8 +7,7 @@ export const {
   PORT,
   NODE_ENV,
   ENVIRONMENT,
-  // JWT_AUTH_SECERT,
-  // AUTH_TOKEN_TTL,
+  JWT_AUTH_SECRET,
   PRODUCTION_URL
 } = process.env
 
@@ -28,8 +27,9 @@ export const ORIGIN =
 
 export const ROUTES = {
   //users
-  CREATEUSER: "/users",
-  
+  CREATEUSER: "/users/register",
+  LOGIN: '/users/login',
+
   // classes
   CREATECLASS: "/classes",
   GETCLASS: "/classes/:class_id",
@@ -46,6 +46,7 @@ export const ROUTES = {
  * @const
  */
 export const SALT_ROUNDS = 10;
+export const AUTH_TOKEN_LIFETIME = '1d';
 
 /**
  * DDOS attack preventer. App should not allow a user

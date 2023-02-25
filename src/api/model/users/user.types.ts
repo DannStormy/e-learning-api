@@ -1,9 +1,9 @@
 import { Document, Model } from "mongoose";
 export interface IUser {
-    username: String,
-    email: String,
-    password: String,
-    type: String,
+    username: string,
+    email: string,
+    password: string,
+    type: string,
 }
 
 export interface IUserModel extends Model<IUserDocument> {
@@ -13,7 +13,7 @@ export interface IUserModel extends Model<IUserDocument> {
       email,
       password,
       type
-    }: { username: string; email: string; password: number, type: number }
+    }: { username: string; email: string; password: string, type: string }
   ) => Promise<IUserDocument>;
   // findByAge: (
   //   min?: number,
