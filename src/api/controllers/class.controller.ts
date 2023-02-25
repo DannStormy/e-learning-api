@@ -12,7 +12,7 @@ import { logger } from "../../config/logger";
 const { CREATED, NOT_FOUND, OK, BAD_REQUEST, UNAUTHORIZED } = StatusCodes;
 
 
-const { createClass, getClass, totalClassCount, getClasses } = ClassService
+const { createClass, getClass, totalClassCount, getClasses, deleteClass } = ClassService
 
 
 export default class ClassController {
@@ -60,33 +60,31 @@ export default class ClassController {
     }
   }
 
-  // static async deleteProduct(req: Request, res: Response) {
-  //   try {
-  //     const { product_id } = req.params
-  //     const product = await getProduct(product_id);
-  //     console.log("Product: ", product)
-  //     if (!product) {
-  //       return errorResponse({
-  //         res,
-  //         message: "products not found",
-  //         statusCode: NOT_FOUND
-  //       })
-  //     }
-  //     console.log(product_id, 'id')
-  //     await deleteProduct(product_id);
-  //     return successResponse({
-  //       res,
-  //       message: "product deleted",
-  //       statusCode: OK
-  //     })
-  //   } catch (error) {
-  //     console.log("Error: ", error)
-  //     return errorResponse({
-  //       res,
-  //       message: "we encoutered a problem while deleting product"
-  //     })
-  //   }
-  // }
+  static async deleteClass(req: Request, res: Response) {
+    try {
+      const { class_id } = req.params
+      const cl = await getClass(class_id);
+      if (!cl) {
+        return errorResponse({
+          res,
+          message: "class not found",
+          statusCode: NOT_FOUND
+        })
+      }
+      await deleteClass(class_id);
+      return successResponse({
+        res,
+        message: "class deleted",
+        statusCode: OK
+      })
+    } catch (error) {
+      console.log("Error: ", error)
+      return errorResponse({
+        res,
+        message: "we encoutered a problem while deleting class"
+      })
+    }
+  }
 
   static async getClasses(req: Request, res: Response) {
     try {

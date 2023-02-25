@@ -13,3 +13,22 @@ export type ResponsePacket = {
   error?: Error;
   statusCode?: number;
 }
+
+/**
+ * User type
+ */
+export type User = {
+  id: string;
+  type: string;
+  username: string;
+}
+
+/**
+ * Response object with user attached
+ * @interface
+ */
+export interface RequestWithUser extends Request {
+  file?: any; // TODO: resolve any type
+  user?: User;
+
+}

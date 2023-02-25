@@ -40,13 +40,13 @@ class ClassService {
     }
   }
 
-//   async deleteProduct(productId: string): Promise<void> {
-//     try {
-//       await ProductModel.deleteOne({_id: productId});
-//     } catch (error) {
-//       throw error
-//     }
-//   }
+  async deleteClass(classId: string): Promise<void> {
+    try {
+      await ClassModel.deleteOne({_id: classId});
+    } catch (error) {
+      throw error
+    }
+  }
 
 //   async updateProduct(productId: string, prod: updatedField): Promise<void> {
 //     try {
