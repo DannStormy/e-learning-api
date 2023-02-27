@@ -1,12 +1,12 @@
 import { Document, Model } from "mongoose";
 export interface IClass {
-    title: String,
-    description: String,
-    instructor: String,
+    title: string,
+    description: string,
+    instructor: string,
     lessons: [{
-      lesson_number: Number,
-      lesson_title: String,
-      lesson_body: String
+      lesson_number: number,
+      lesson_title: string,
+      lesson_body: string
     }]
 }
 

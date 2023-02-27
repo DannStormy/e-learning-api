@@ -1,5 +1,6 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import ClassService from "../services/class";
+import StudentService from '../services/student';
 import {
   successResponse,
   errorResponse,
@@ -8,7 +9,7 @@ import {
 } from "../../helpers"
 import { Request, Response } from "express";
 import { logger } from "../../config/logger";
-// import { IProductDocument } from "../model/products/product.types";
+import { RequestWithUser } from "../types";
 const { CREATED, NOT_FOUND, OK, BAD_REQUEST, UNAUTHORIZED } = StatusCodes;
 
 
@@ -26,7 +27,7 @@ export default class ClassController {
         statusCode: CREATED
       })
     } catch (error) {
-      logger("error",  error);
+      logger("error", error);
       return errorResponse({
         res,
         message: "error while creating class",
@@ -37,7 +38,7 @@ export default class ClassController {
   static async getClass(req: Request, res: Response) {
     try {
       const { class_id } = req.params
-      const cl = await getClass(class_id); 
+      const cl = await getClass(class_id);
       if (!cl) {
         return errorResponse({
           res,
@@ -47,7 +48,7 @@ export default class ClassController {
       }
       return successResponse({
         res,
-        data:  cl,
+        data: cl,
         message: "class fetched",
         statusCode: OK
       })
@@ -94,7 +95,7 @@ export default class ClassController {
       if (!count) {
         throw new Error("no count return")
       }
-      const classes  = await getClasses();
+      const classes = await getClasses();
       if (!count) {
         return errorResponse({
           res,
@@ -121,29 +122,66 @@ export default class ClassController {
     }
   }
 
-  // static async updateProducts(req: Request, res: Response) {
-  //   try {
-  //     const { product_id} = req.params;
-  //     const product = await getProduct(product_id)
-  //     if (!product) {
-  //       return errorResponse({
-  //         res,
-  //         message: "products not found",
-  //         statusCode: NOT_FOUND
-  //       })
-  //     }
-  //     const body = req.body
-  //     await updateProduct(product_id, body)
-  //     return successResponse({
-  //       res,
-  //       message: "product updated",
-  //       statusCode: OK
-  //     })
-  //   } catch (error) {
-  //     return errorResponse({
-  //       res,
-  //       message: "we encoutered a error while updating product"
-  //     })
-  //   }
-  // }
+  static async enrollClass(req: RequestWithUser, res: Response) {
+    try {
+      const { params, user, body } = req;
+      const cl = await ClassService.getClass(params.class_id);
+      if (!cl) {
+        return errorResponse({
+          res,
+          message: "class not found",
+          statusCode: NOT_FOUND
+        })
+      }
+
+      const enrolledCl = await StudentService.findEnrolledClass(params.class_id, user?.username as string);
+      if (enrolledCl.classes.length > 0) {
+        return errorResponse({
+          res,
+          message: "class already enrolled",
+          statusCode: BAD_REQUEST
+        })
+      }
+
+      await StudentService.enrollClass(cl.id, cl.title, user?.username as string)
+      return successResponse({
+        res,
+        message: "class enrolled",
+        statusCode: CREATED
+      })
+    } catch (error: any) {
+      logger("error", error.message);
+      return errorResponse({
+        res,
+        message: "error while enrolling in class",
+      })
+    }
+  }
+
+  static async deleteEnrolledClass(req: RequestWithUser, res: Response) {
+    try {
+      const { params, user, body } = req;
+      const cl = await StudentService.findEnrolledClass(params.class_id, user?.username as string);
+      if (cl.classes.length < 1) {
+        return errorResponse({
+          res,
+          message: "class not found",
+          statusCode: NOT_FOUND
+        })
+      }
+      const c: any = cl.classes[0].class_id
+      await StudentService.deleteEnrolledClass(c, user?.username as string)
+      return successResponse({
+        res,
+        message: "class removed",
+        statusCode: CREATED
+      })
+    } catch (error: any) {
+      logger("error", error.message);
+      return errorResponse({
+        res,
+        message: "error while removing class",
+      })
+    }
+  }
 }

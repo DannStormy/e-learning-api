@@ -1,12 +1,6 @@
 import { ClassModel } from "../model/classes/class.model";
 import { IClass, IClassDocument } from "../model/classes/class.types";
 
-// interface updatedField {
-//   name?: string,
-//   quantity?: Number,
-//   price?: Number,
-//   descriptions?: string
-// }
 class ClassService { 
   async createClass(cl: IClass): Promise<void> {
     try {
@@ -47,18 +41,6 @@ class ClassService {
       throw error
     }
   }
-
-//   async updateProduct(productId: string, prod: updatedField): Promise<void> {
-//     try {
-//       const product = await ProductModel.findById(productId);
-//       if (!product) {
-//         throw new Error("no record found")
-//       }
-//       await ProductModel.updateMany({_id: productId}, prod)
-//     } catch (error) {
-//       throw error
-//     }
-//   }
 
   async totalClassCount(): Promise<number> {
     try {

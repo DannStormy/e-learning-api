@@ -6,6 +6,8 @@ import { isLoggedIn } from "../middlewares/auth";
 const {
   CREATECLASS,
   DELETECLASS,
+  ENROLLCLASS,
+  DELETEENROLLEDCLASS,
   GETCLASS,
   GETCLASSES
 } = ROUTES
@@ -14,7 +16,9 @@ const {
     createClass,
     getClass,
     getClasses,
-    deleteClass
+    deleteClass,
+    enrollClass,
+    deleteEnrolledClass
 } = ClassController;
 
 
@@ -30,12 +34,25 @@ classRouter.get(
   getClasses
 );
 
-classRouter.use(isLoggedIn);
+// classRouter.use(isLoggedIn);
 
 classRouter.post(
   CREATECLASS,
+  isLoggedIn,
   validateClass,
   createClass
+);
+
+classRouter.post(
+  ENROLLCLASS,
+  isLoggedIn,
+  enrollClass
+);
+
+classRouter.delete(
+  DELETEENROLLEDCLASS,
+  isLoggedIn,
+  deleteEnrolledClass
 );
 
 classRouter.delete(

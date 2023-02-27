@@ -1,20 +1,20 @@
 import { Document, Model } from "mongoose";
 export interface IStudent {
-    first_name: String,
-    last_name: String,
-    username: String,
+    first_name: string,
+    last_name: string,
+    username: string,
     address: [{
-      street_address: String,
-      city: String,
-      state: String,
-      zip: String
+      street_address: string,
+      city: string,
+      state: string,
+      zip: string
     }],
-    email: String,
+    email: string,
     classes: [{
       class_id: {
-          type: String
+          type: string
       },
-      class_title: String
+      class_title: string
     }]
 }
 

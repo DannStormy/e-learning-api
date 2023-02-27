@@ -33,6 +33,8 @@ export const ROUTES = {
   // classes
   CREATECLASS: "/classes",
   DELETECLASS: "/classes/:class_id",
+  ENROLLCLASS: "/classes/:class_id",
+  DELETEENROLLEDCLASS: "/classes/enrolled/:class_id",
   GETCLASS: "/classes/:class_id",
   GETCLASSES: "/classes",
 
